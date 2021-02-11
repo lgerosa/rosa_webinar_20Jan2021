@@ -1,0 +1,56 @@
+begin model
+begin parameters
+  R_0       0.01
+  I_0       0
+  kr_RR     10
+  kf_RR     1
+  phi_RR    1
+  kr_RI     0.10000000000000001
+  kf_RI     1
+  phi_RI    1
+  f         1
+  g         1
+  Gf_RR     ln(kr_RR/kf_RR)
+  Ea0_RR    -ln(kf_RR) - phi_RR*ln(kr_RR/kf_RR)
+  Gf_RI     ln(kr_RI/kf_RI)
+  Ea0_RI    -ln(kf_RI) - phi_RI*ln(kr_RI/kf_RI)
+  Gf_f      ln(f)
+  Gf_g      ln(g)
+  Gf_RRI    Gf_f
+  Gf_IRRI   Gf_f + Gf_g
+end parameters
+
+begin molecule types
+  R(r,i)
+  I(r)
+end molecule types
+
+begin observables
+  Molecules Rtot_obs               R()
+  Molecules Itot_obs               I()
+  Molecules R_BRAFmut_active_obs   R(i)
+  Molecules R_RAFwt_active_obs     R(r!1,i).R(r!1)
+  Molecules R_obs                  R(r,i)
+  Molecules RR_obs                 R(r!1,i).R(r!1,i)
+  Molecules RRI_obs                R(r!1,i).R(r!1,i!2).I(r!2)
+  Molecules IRRI_obs               I(r!2).R(r!1,i!2).R(r!1,i!3).I(r!3)
+end observables
+
+begin species
+  R(r,i)   R_0
+  I(r)     I_0
+end species
+
+begin energy patterns
+  ep_RR:   R(r!1).R(r!1)    ln(kr_RR/kf_RR)
+  ep_RI:   R(i!1).I(r!1)    ln(kr_RI/kf_RI)
+  ep_RRI:  R(r!1,i).R(r!1,i!2).I(r!2)    Gf_f
+  ep_IRRI:  I(r!2).R(r!1,i!2).R(r!1,i!3).I(r!3)    Gf_f + Gf_g
+end energy patterns
+
+begin reaction rules
+  RR:  R(r) + R(r) <-> R(r!1).R(r!1)    Arrhenius(phi_RR, Ea0_RR)
+  RI:  R(i) + I(r) <-> R(i!1).I(r!1)    Arrhenius(phi_RI, Ea0_RI)
+end reaction rules
+
+end model
