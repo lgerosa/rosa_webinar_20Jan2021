@@ -1,6 +1,6 @@
 # exported from PySB model 'toy_example_RAF_RAFi'
 
-from pysb import Model, Monomer, Parameter, Expression, Compartment, Rule, Observable, Initial, MatchOnce, EnergyPattern, Annotation, MultiState, Tag, ANY, WILD
+from pysb import Model, Monomer, Parameter, Expression, Compartment, Rule, Observable, Initial, MatchOnce, Annotation, MultiState, Tag, ANY, WILD
 
 Model()
 
@@ -38,11 +38,6 @@ Observable('IRRI_obs', I(r=2) % R(r=1, i=2) % R(r=1, i=3) % I(r=3))
 
 Rule('RR', R(r=None) + R(r=None) | R(r=1) % R(r=1), phi_RR, Ea0_RR, energy=True)
 Rule('RI', R(i=None) + I(r=None) | R(i=1) % I(r=1), phi_RI, Ea0_RI, energy=True)
-
-EnergyPattern('ep_RR', R(r=1) % R(r=1), Gf_RR)
-EnergyPattern('ep_RI', R(i=1) % I(r=1), Gf_RI)
-EnergyPattern('ep_RRI', R(r=1, i=None) % R(r=1, i=2) % I(r=2), Gf_RRI)
-EnergyPattern('ep_IRRI', I(r=2) % R(r=1, i=2) % R(r=1, i=3) % I(r=3), Gf_IRRI)
 
 Initial(R(r=None, i=None), R_0)
 Initial(I(r=None), I_0)
