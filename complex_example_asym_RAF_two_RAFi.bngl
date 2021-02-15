@@ -20,7 +20,8 @@ begin parameters
   g_2b        1
   g_3a        1
   g_3b        1
-  lambda      10
+  kcat        1
+  plambda     10
   p1          0.5
   p2          0.5
   Gf_1        ln(kr_1/kf_1)
@@ -50,6 +51,17 @@ begin molecule types
   I1(r)
   I2(r)
 end molecule types
+
+begin observables
+  Molecules R_obs       R(r,i)
+  Molecules RR_obs      R(r!1,i).R(r!1,i)
+  Molecules R1R2I_obs   R(r!1,i!+,state~R1).R(r!1,i,state~R2)
+  Molecules R2R1I_obs   R(r!1,i!+,state~R2).R(r!1,i,state~R1)
+end observables
+
+begin functions
+  R_active()   ((R1R2I_obs*p1 + R2R1I_obs*p2 + RR_obs)*plambda + R_obs)*kcat
+end functions
 
 begin species
   R(r,i,state~none)   R_0

@@ -28,7 +28,8 @@ Parameter('g_2a', 1.0)
 Parameter('g_2b', 1.0)
 Parameter('g_3a', 1.0)
 Parameter('g_3b', 1.0)
-Parameter('lambda', 10.0)
+Parameter('kcat', 1.0)
+Parameter('plambda', 10.0)
 Parameter('p1', 0.5)
 Parameter('p2', 0.5)
 
@@ -52,6 +53,13 @@ Expression('Gf_g2a_fa', -Gf_fa + Gf_g2a)
 Expression('Gf_g2b_fb', -Gf_fb + Gf_g2b)
 Expression('Gf_g3a_fa', -Gf_fa + Gf_g3a)
 Expression('Gf_g3b_fb', -Gf_fb + Gf_g3b)
+
+Observable('R_obs', R(r=None, i=None))
+Observable('RR_obs', R(r=1, i=None) % R(r=1, i=None))
+Observable('R1R2I_obs', R(r=1, i=ANY, state='R1') % R(r=1, i=None, state='R2'))
+Observable('R2R1I_obs', R(r=1, i=ANY, state='R2') % R(r=1, i=None, state='R1'))
+
+Expression('R_active', kcat*(R_obs + plambda*(R1R2I_obs*p1 + R2R1I_obs*p2 + RR_obs)))
 
 Rule('R1', R(r=None, state='none') + R(r=None, state='none') | R(r=1, state='R1') % R(r=1, state='R2'), phi_1, Ea0_1, energy=True)
 Rule('R2a', R(i=None) + I1(r=None) | R(i=1) % I1(r=1), phi_2a, Ea0_2a, energy=True)
