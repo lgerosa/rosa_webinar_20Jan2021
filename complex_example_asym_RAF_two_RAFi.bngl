@@ -12,28 +12,31 @@ begin parameters
   kr_2b    0.10000000000000001
   kf_2b    1
   phi_2b   1
-  fa       1
-  fb       1
-  g1a      1
-  g1b      1
-  g2a      1
-  g2b      1
-  g3a      1
-  g3b      1
+  f_a      1
+  f_b      1
+  g_1a     1
+  g_1b     1
+  g_2a     1
+  g_2b     1
+  g_3a     1
+  g_3b     1
+  lamba    10
+  p1       0.5
+  p2       0.5
   Gf_1     ln(kr_1/kf_1)
   Ea0_1    -ln(kf_1) - phi_1*ln(kr_1/kf_1)
   Gf_2a    ln(kr_2a/kf_2a)
   Ea0_2a   -ln(kf_2a) - phi_2a*ln(kr_2a/kf_2a)
   Gf_2b    ln(kr_2b/kf_2b)
   Ea0_2b   -ln(kf_2b) - phi_2b*ln(kr_2b/kf_2b)
-  Gf_fa    ln(fa)
-  Gf_fb    ln(fb)
-  Gf_g1a   ln(g1a)
-  Gf_g1b   ln(g1b)
-  Gf_g2a   ln(g2a)
-  Gf_g2b   ln(g2b)
-  Gf_g3a   ln(g3a)
-  Gf_g3b   ln(g3b)
+  Gf_fa    ln(f_a)
+  Gf_fb    ln(f_b)
+  Gf_g1a   ln(g_1a)
+  Gf_g1b   ln(g_1b)
+  Gf_g2a   ln(g_2a)
+  Gf_g2b   ln(g_2b)
+  Gf_g3a   ln(g_3a)
+  Gf_g3b   ln(g_3b)
 end parameters
 
 begin molecule types
@@ -49,11 +52,17 @@ begin species
 end species
 
 begin energy patterns
-  ep_1:      R(r!1).R(r!1)    ln(kr_1/kf_1)
-  ep_2a:     R(i!1).I1(r!1)    ln(kr_2a/kf_2a)
-  ep_3:      R(i!1).I2(r!1)    ln(kr_2b/kf_2b)
-  ep_fa_RRI:  R(r!1,i,state~R2).R(r!1,i!2,state~R1).I1(r!2)    ln(fa)
-  ep_fb_RRI:  R(r!1,i,state~R2).R(r!1,i!2,state~R1).I2(r!2)    ln(fb)
+  ep_1:            R(r!1).R(r!1)    ln(kr_1/kf_1)
+  ep_2a:           R(i!1).I1(r!1)    ln(kr_2a/kf_2a)
+  ep_3:            R(i!1).I2(r!1)    ln(kr_2b/kf_2b)
+  ep_fa_R2R1I1:    R(r!1,state~R2).R(r!1,i!2,state~R1).I1(r!2)    ln(f_a)
+  ep_fb_R2R1I2:    R(r!1,state~R2).R(r!1,i!2,state~R1).I2(r!2)    ln(f_b)
+  ep_g1a_R1R2I1:   R(r!1,state~R1).R(r!1,i!2,state~R2).I1(r!2)    ln(g_1a)
+  ep_g1b_R1R2I2:   R(r!1,state~R1).R(r!1,i!2,state~R2).I2(r!2)    ln(g_1b)
+  ep_g2a_I1R1R2I1:  I1(r!3).R(r!1,i!3,state~R1).R(r!1,i!2,state~R2).I1(r!2)    ln(g_2a)
+  ep_g2b_I2R1R2I2:  I2(r!3).R(r!1,i!3,state~R1).R(r!1,i!2,state~R2).I2(r!2)    ln(g_2b)
+  ep_g3a_I1R1R2I2:  I2(r!3).R(r!1,i!3,state~R2).R(r!1,i!2,state~R1).I1(r!2)    ln(g_3a)
+  ep_g3b_I2R1R2I1:  I1(r!3).R(r!1,i!3,state~R2).R(r!1,i!2,state~R1).I2(r!2)    ln(g_3b)
 end energy patterns
 
 begin reaction rules
