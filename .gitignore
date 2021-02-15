@@ -1,6 +1,4 @@
 
-.ipynb_checkpoints/toy_example_RAF_RAFi-checkpoint.ipynb
-.ipynb_checkpoints/Untitled-checkpoint.ipynb
+.ipynb_checkpoints/
+__pycache__/
 debug.log
-.ipynb_checkpoints/advanced_RAF_RAFi_model-checkpoint.ipynb
-advanced_RAF_RAFi_model.ipynb
