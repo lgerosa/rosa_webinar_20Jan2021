@@ -1,8 +1,24 @@
+#utility functions used to display model properties
 
 from pysb import Expression
 from sympy import Symbol, latex, simplify
 from IPython.core.display import display
 import pandas as pd
+
+def display_model_info(model):
+    # print model infomration
+    print ('Model information')
+    print ('Species:',len(model.species))
+    print ('Parameters:',len(model.parameters)+len(model.initial_conditions))
+    print ('Expressions:',len(model.expressions))
+    print ('Observables:', len(model.observables))
+    ntotr=len(model.rules);
+    nenergy=len([r for r in model.rules if r.energy]);
+    print ('Total Rules:', ntotr)
+    print ('Energy Rules:', nenergy)
+    print('Non-energy Rules:', ntotr-nenergy)
+    print('Energy Patterns:', len(model.energypatterns))
+    print('Reactions:',len(model.reactions))
 
 def transform_rate(r):
     # Expand PySB Expressions into their full contents.

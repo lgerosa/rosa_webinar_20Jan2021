@@ -20,7 +20,7 @@ begin parameters
   g_2b        1
   g_3a        1
   g_3b        1
-  lamba       10
+  lambda      10
   p1          0.5
   p2          0.5
   Gf_1        ln(kr_1/kf_1)

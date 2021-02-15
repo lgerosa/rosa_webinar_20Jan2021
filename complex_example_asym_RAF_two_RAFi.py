@@ -28,7 +28,7 @@ Parameter('g_2a', 1.0)
 Parameter('g_2b', 1.0)
 Parameter('g_3a', 1.0)
 Parameter('g_3b', 1.0)
-Parameter('lamba', 10.0)
+Parameter('lambda', 10.0)
 Parameter('p1', 0.5)
 Parameter('p2', 0.5)
 
