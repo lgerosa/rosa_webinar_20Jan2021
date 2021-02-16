@@ -24,10 +24,13 @@ begin parameters
   plambda     10
   p1          0.5
   p2          0.5
+  Kd_1        kr_1/kf_1
   Gf_1        ln(kr_1/kf_1)
   Ea0_1       -ln(kf_1) - phi_1*ln(kr_1/kf_1)
+  Kd_2a       kr_2a/kf_2a
   Gf_2a       ln(kr_2a/kf_2a)
   Ea0_2a      -ln(kf_2a) - phi_2a*ln(kr_2a/kf_2a)
+  Kd_2b       kr_2b/kf_2b
   Gf_2b       ln(kr_2b/kf_2b)
   Ea0_2b      -ln(kf_2b) - phi_2b*ln(kr_2b/kf_2b)
   Gf_fa       ln(f_a)
