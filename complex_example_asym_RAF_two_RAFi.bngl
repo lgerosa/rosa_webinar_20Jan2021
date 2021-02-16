@@ -60,6 +60,7 @@ begin observables
   Molecules RR_obs      R(r!1,i).R(r!1,i)
   Molecules R1R2I_obs   R(r!1,i!+,state~R1).R(r!1,i,state~R2)
   Molecules R2R1I_obs   R(r!1,i!+,state~R2).R(r!1,i,state~R1)
+  Molecules IRRI_obs    R(r!1,i!+).R(r!1,i!+,state~R1)
 end observables
 
 begin functions

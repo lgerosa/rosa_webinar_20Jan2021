@@ -61,6 +61,7 @@ Observable('R_obs', R(r=None, i=None))
 Observable('RR_obs', R(r=1, i=None) % R(r=1, i=None))
 Observable('R1R2I_obs', R(r=1, i=ANY, state='R1') % R(r=1, i=None, state='R2'))
 Observable('R2R1I_obs', R(r=1, i=ANY, state='R2') % R(r=1, i=None, state='R1'))
+Observable('IRRI_obs', R(r=1, i=ANY) % R(r=1, i=ANY, state='R1'))
 
 Expression('R_active', kcat*(R_obs + plambda*(R1R2I_obs*p1 + R2R1I_obs*p2 + RR_obs)))
 
