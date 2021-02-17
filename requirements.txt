@@ -1,0 +1,12 @@
+git+https://github.com/jmuhlich/pysb.git@energy
+-c alubbock bionetgen
+synergy
+numpy
+matplotlib
+pandas>=1.2
+sympy
+Cython
+tqdm
+jupyter
+python-dateutil
+synergy
