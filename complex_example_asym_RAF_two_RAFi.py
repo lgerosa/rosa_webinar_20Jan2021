@@ -1,6 +1,7 @@
 # exported from PySB model 'complex_example_asym_RAF_two_RAFi'
 
-from pysb import Model, Monomer, Parameter, Expression, Compartment, Rule, Observable, Initial, MatchOnce, Annotation, MultiState, Tag, ANY, WILD
+from pysb import Model, Monomer, Parameter, Expression, Compartment, Rule, Observable, Initial, MatchOnce, EnergyPattern, Annotation, MultiState, Tag, ANY, WILD
+from sympy import log
 
 Model()
 
@@ -68,6 +69,18 @@ Expression('R_active', kcat*(R_obs + plambda*(R1R2I_obs*p1 + R2R1I_obs*p2 + RR_o
 Rule('R1', R(r=None, state='none') + R(r=None, state='none') | R(r=1, state='R1') % R(r=1, state='R2'), phi_1, Ea0_1, energy=True)
 Rule('R2a', R(i=None) + I1(r=None) | R(i=1) % I1(r=1), phi_2a, Ea0_2a, energy=True)
 Rule('R2b', R(i=None) + I2(r=None) | R(i=1) % I2(r=1), phi_2b, Ea0_2b, energy=True)
+
+EnergyPattern('ep_1', R(r=1) % R(r=1), Gf_1)
+EnergyPattern('ep_2a', R(i=1) % I1(r=1), Gf_2a)
+EnergyPattern('ep_3', R(i=1) % I2(r=1), Gf_2b)
+EnergyPattern('ep_fa_R2R1I1', R(r=1, state='R2') % R(r=1, i=2, state='R1') % I1(r=2), Gf_fa)
+EnergyPattern('ep_fb_R2R1I2', R(r=1, state='R2') % R(r=1, i=2, state='R1') % I2(r=2), Gf_fb)
+EnergyPattern('ep_g1a_R1R2I1', R(r=1, state='R1') % R(r=1, i=2, state='R2') % I1(r=2), Gf_g1a_fa)
+EnergyPattern('ep_g1b_R1R2I2', R(r=1, state='R1') % R(r=1, i=2, state='R2') % I2(r=2), Gf_g1b_fb)
+EnergyPattern('ep_g2a_I1R1R2I1', I1(r=3) % R(r=1, i=3, state='R1') % R(r=1, i=2, state='R2') % I1(r=2), Gf_g2a_fa)
+EnergyPattern('ep_g2b_I2R1R2I2', I2(r=3) % R(r=1, i=3, state='R1') % R(r=1, i=2, state='R2') % I2(r=2), Gf_g2b_fb)
+EnergyPattern('ep_g3a_I1R1R2I2', I2(r=3) % R(r=1, i=3, state='R2') % R(r=1, i=2, state='R1') % I1(r=2), Gf_g3a_fa)
+EnergyPattern('ep_g3b_I2R1R2I1', I1(r=3) % R(r=1, i=3, state='R2') % R(r=1, i=2, state='R1') % I2(r=2), Gf_g3b_fb)
 
 Initial(R(r=None, i=None, state='none'), R_0)
 Initial(I1(r=None), I1_0)
