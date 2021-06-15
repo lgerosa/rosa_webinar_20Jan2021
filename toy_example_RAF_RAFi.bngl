@@ -30,10 +30,10 @@ begin observables
   Molecules Itot_obs               I()
   Molecules R_BRAFmut_active_obs   R(i)
   Molecules R_RAFwt_active_obs     R(r!1,i).R(r!1)
-  Molecules R_obs                  R(r,i)
-  Molecules RR_obs                 R(r!1,i).R(r!1,i)
-  Molecules RRI_obs                R(r!1,i).R(r!1,i!2).I(r!2)
-  Molecules IRRI_obs               I(r!2).R(r!1,i!2).R(r!1,i!3).I(r!3)
+  Species R_obs                  R(r,i)
+  Species RR_obs                 R(r!1,i).R(r!1,i)
+  Species RRI_obs                R(r!1,i).R(r!1,i!2).I(r!2)
+  Species IRRI_obs               I(r!2).R(r!1,i!2).R(r!1,i!3).I(r!3)
 end observables
 
 begin species

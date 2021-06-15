@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model name="toy_example_RAF_RAFi">
+    <listOfCompartments>
+      <compartment id="default" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="__s0" name="R(r=None, i=None)" compartment="default" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="__s1" name="I(r=None)" compartment="default" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="__s2" name="R(r=1, i=None) ._br_R(r=1, i=None)" compartment="default" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="__s3" name="I(r=1) ._br_R(r=None, i=1)" compartment="default" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="__s4" name="I(r=1) ._br_R(r=2, i=1) ._br_R(r=2, i=None)" compartment="default" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="__s5" name="I(r=1) ._br_I(r=2) ._br_R(r=3, i=1) ._br_R(r=3, i=2)" compartment="default" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="Gf_RR" name="Gf_RR" constant="false"/>
+      <parameter id="Ea0_RR" name="Ea0_RR" constant="false"/>
+      <parameter id="Gf_RI" name="Gf_RI" constant="false"/>
+      <parameter id="Ea0_RI" name="Ea0_RI" constant="false"/>
+      <parameter id="Gf_f" name="Gf_f" constant="false"/>
+      <parameter id="Gf_g" name="Gf_g" constant="false"/>
+      <parameter id="Gf_RRI" name="Gf_RRI" constant="false"/>
+      <parameter id="Gf_IRRI" name="Gf_IRRI" constant="false"/>
+      <parameter id="_RR_local1" name="_RR_local1" constant="false"/>
+      <parameter id="_RI_local1" name="_RI_local1" constant="false"/>
+      <parameter id="_RR_local2" name="_RR_local2" constant="false"/>
+      <parameter id="_RR_local3" name="_RR_local3" constant="false"/>
+      <parameter id="__reverse_RR_local1" name="__reverse_RR_local1" constant="false"/>
+      <parameter id="_RI_local2" name="_RI_local2" constant="false"/>
+      <parameter id="__reverse_RI_local1" name="__reverse_RI_local1" constant="false"/>
+      <parameter id="__reverse_RR_local2" name="__reverse_RR_local2" constant="false"/>
+      <parameter id="__reverse_RR_local3" name="__reverse_RR_local3" constant="false"/>
+      <parameter id="_RI_local3" name="_RI_local3" constant="false"/>
+      <parameter id="__reverse_RI_local2" name="__reverse_RI_local2" constant="false"/>
+      <parameter id="__reverse_RI_local3" name="__reverse_RI_local3" constant="false"/>
+      <parameter id="R_0" name="R_0" value="0.01" constant="true"/>
+      <parameter id="I_0" name="I_0" value="0" constant="true"/>
+      <parameter id="kr_RR" name="kr_RR" value="10" constant="true"/>
+      <parameter id="kf_RR" name="kf_RR" value="1" constant="true"/>
+      <parameter id="phi_RR" name="phi_RR" value="1" constant="true"/>
+      <parameter id="kr_RI" name="kr_RI" value="0.1" constant="true"/>
+      <parameter id="kf_RI" name="kf_RI" value="1" constant="true"/>
+      <parameter id="phi_RI" name="phi_RI" value="1" constant="true"/>
+      <parameter id="f" name="f" value="1" constant="true"/>
+      <parameter id="g" name="g" value="1" constant="true"/>
+      <parameter id="__obs0" name="Rtot_obs" constant="false"/>
+      <parameter id="__obs1" name="Itot_obs" constant="false"/>
+      <parameter id="__obs2" name="R_BRAFmut_active_obs" constant="false"/>
+      <parameter id="__obs3" name="R_RAFwt_active_obs" constant="false"/>
+      <parameter id="__obs4" name="R_obs" constant="false"/>
+      <parameter id="__obs5" name="RR_obs" constant="false"/>
+      <parameter id="__obs6" name="RRI_obs" constant="false"/>
+      <parameter id="__obs7" name="IRRI_obs" constant="false"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="__s0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> R_0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="__s1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> I_0 </ci>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <assignmentRule variable="Gf_RR">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <ln/>
+            <apply>
+              <divide/>
+              <ci> kr_RR </ci>
+              <ci> kf_RR </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Ea0_RR">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> phi_RR </ci>
+                <apply>
+                  <ln/>
+                  <apply>
+                    <divide/>
+                    <ci> kr_RR </ci>
+                    <ci> kf_RR </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <ln/>
+              <ci> kf_RR </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Gf_RI">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <ln/>
+            <apply>
+              <divide/>
+              <ci> kr_RI </ci>
+              <ci> kf_RI </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Ea0_RI">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> phi_RI </ci>
+                <apply>
+                  <ln/>
+                  <apply>
+                    <divide/>
+                    <ci> kr_RI </ci>
+                    <ci> kf_RI </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <ln/>
+              <ci> kf_RI </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Gf_f">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <ln/>
+            <ci> f </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Gf_g">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <ln/>
+            <ci> g </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Gf_RRI">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <ln/>
+            <ci> f </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="Gf_IRRI">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <ln/>
+              <ci> f </ci>
+            </apply>
+            <apply>
+              <ln/>
+              <ci> g </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="_RR_local1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> kf_RR </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="_RI_local1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> kf_RI </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="_RR_local2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> kf_RR </ci>
+            <apply>
+              <exp/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <times/>
+                    <ci> phi_RR </ci>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <ln/>
+                        <ci> f </ci>
+                      </apply>
+                      <apply>
+                        <ln/>
+                        <apply>
+                          <divide/>
+                          <ci> kr_RR </ci>
+                          <ci> kf_RR </ci>
+                        </apply>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> phi_RR </ci>
+                  <apply>
+                    <ln/>
+                    <apply>
+                      <divide/>
+                      <ci> kr_RR </ci>
+                      <ci> kf_RR </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="_RR_local3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> kf_RR </ci>
+            <apply>
+              <exp/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <times/>
+                    <ci> phi_RR </ci>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <ln/>
+                        <ci> f </ci>
+                      </apply>
+                      <apply>
+                        <ln/>
+                        <ci> g </ci>
+                      </apply>
+                      <apply>
+                        <ln/>
+                        <apply>
+                          <divide/>
+                          <ci> kr_RR </ci>
+                          <ci> kf_RR </ci>
+                        </apply>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> phi_RR </ci>
+                  <apply>
+                    <ln/>
+                    <apply>
+                      <divide/>
+                      <ci> kr_RR </ci>
+                      <ci> kf_RR </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="__reverse_RR_local1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> kf_RR </ci>
+            <apply>
+              <exp/>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> phi_RR </ci>
+                  <apply>
+                    <ln/>
+                    <apply>
+                      <divide/>
+                      <ci> kr_RR </ci>
+                      <ci> kf_RR </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn> 1 </cn>
+                    <ci> phi_RR </ci>
+                  </apply>
+                  <apply>
+                    <ln/>
+                    <apply>
+                      <divide/>
+                      <ci> kr_RR </ci>
+                      <ci> kf_RR </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="_RI_local2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> kf_RI </ci>
+            <apply>
+              <exp/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <times/>
+                    <ci> phi_RI </ci>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <ln/>
+                        <ci> f </ci>
+                      </apply>
+                      <apply>
+                        <ln/>
+                        <apply>
+                          <divide/>
+                          <ci> kr_RI </ci>
+                          <ci> kf_RI </ci>
+                        </apply>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> phi_RI </ci>
+                  <apply>
+                    <ln/>
+                    <apply>
+                      <divide/>
+                      <ci> kr_RI </ci>
+                      <ci> kf_RI </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="__reverse_RI_local1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> kf_RI </ci>
+            <apply>
+              <exp/>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> phi_RI </ci>
+                  <apply>
+                    <ln/>
+                    <apply>
+                      <divide/>
+                      <ci> kr_RI </ci>
+                      <ci> kf_RI </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn> 1 </cn>
+                    <ci> phi_RI </ci>
+                  </apply>
+                  <apply>
+                    <ln/>
+                    <apply>
+                      <divide/>
+                      <ci> kr_RI </ci>
+                      <ci> kf_RI </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="__reverse_RR_local2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> kf_RR </ci>
+            <apply>
+              <exp/>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> phi_RR </ci>
+                  <apply>
+                    <ln/>
+                    <apply>
+                      <divide/>
+                      <ci> kr_RR </ci>
+                      <ci> kf_RR </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn> 1 </cn>
+                    <ci> phi_RR </ci>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <minus/>
+                      <apply>
+                        <ln/>
+                        <ci> f </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <ln/>
+                      <apply>
+                        <divide/>
+                        <ci> kr_RR </ci>
+                        <ci> kf_RR </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="__reverse_RR_local3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> kf_RR </ci>
+            <apply>
+              <exp/>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> phi_RR </ci>
+                  <apply>
+                    <ln/>
+                    <apply>
+                      <divide/>
+                      <ci> kr_RR </ci>
+                      <ci> kf_RR </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn> 1 </cn>
+                    <ci> phi_RR </ci>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <minus/>
+                      <apply>
+                        <minus/>
+                        <apply>
+                          <ln/>
+                          <ci> f </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <ln/>
+                        <ci> g </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <ln/>
+                      <apply>
+                        <divide/>
+                        <ci> kr_RR </ci>
+                        <ci> kf_RR </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="_RI_local3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> kf_RI </ci>
+            <apply>
+              <exp/>
+              <apply>
+                <plus/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <times/>
+                    <ci> phi_RI </ci>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <ln/>
+                        <ci> g </ci>
+                      </apply>
+                      <apply>
+                        <ln/>
+                        <apply>
+                          <divide/>
+                          <ci> kr_RI </ci>
+                          <ci> kf_RI </ci>
+                        </apply>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> phi_RI </ci>
+                  <apply>
+                    <ln/>
+                    <apply>
+                      <divide/>
+                      <ci> kr_RI </ci>
+                      <ci> kf_RI </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="__reverse_RI_local2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> kf_RI </ci>
+            <apply>
+              <exp/>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> phi_RI </ci>
+                  <apply>
+                    <ln/>
+                    <apply>
+                      <divide/>
+                      <ci> kr_RI </ci>
+                      <ci> kf_RI </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn> 1 </cn>
+                    <ci> phi_RI </ci>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <minus/>
+                      <apply>
+                        <ln/>
+                        <ci> f </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <ln/>
+                      <apply>
+                        <divide/>
+                        <ci> kr_RI </ci>
+                        <ci> kf_RI </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="__reverse_RI_local3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> kf_RI </ci>
+            <apply>
+              <exp/>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> phi_RI </ci>
+                  <apply>
+                    <ln/>
+                    <apply>
+                      <divide/>
+                      <ci> kr_RI </ci>
+                      <ci> kf_RI </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <cn> 1 </cn>
+                    <ci> phi_RI </ci>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <apply>
+                      <minus/>
+                      <apply>
+                        <ln/>
+                        <ci> g </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <ln/>
+                      <apply>
+                        <divide/>
+                        <ci> kr_RI </ci>
+                        <ci> kf_RI </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="__obs0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <ci> __s0 </ci>
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <ci> __s2 </ci>
+            </apply>
+            <ci> __s3 </ci>
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <ci> __s4 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <ci> __s5 </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="__obs1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <ci> __s1 </ci>
+            <ci> __s3 </ci>
+            <ci> __s4 </ci>
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <ci> __s5 </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="__obs2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <ci> __s0 </ci>
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <ci> __s2 </ci>
+            </apply>
+            <ci> __s4 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="__obs3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <ci> __s2 </ci>
+            </apply>
+            <ci> __s4 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="__obs4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> __s0 </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="__obs5">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> __s2 </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="__obs6">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> __s4 </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="__obs7">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> __s5 </ci>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="r0" name="RR" reversible="true">
+        <listOfReactants>
+          <speciesReference species="__s0" constant="true"/>
+          <speciesReference species="__s0" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="__s2" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <cn> 0.5 </cn>
+                <ci> _RR_local1 </ci>
+                <apply>
+                  <power/>
+                  <ci> __s0 </ci>
+                  <cn> 2 </cn>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> __reverse_RR_local1 </ci>
+                <ci> __s2 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r1" name="RI" reversible="true">
+        <listOfReactants>
+          <speciesReference species="__s0" constant="true"/>
+          <speciesReference species="__s1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="__s3" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> _RI_local1 </ci>
+                <ci> __s0 </ci>
+                <ci> __s1 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> __reverse_RI_local1 </ci>
+                <ci> __s3 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r2" name="RR" reversible="true">
+        <listOfReactants>
+          <speciesReference species="__s0" constant="true"/>
+          <speciesReference species="__s3" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="__s4" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> _RR_local2 </ci>
+                <ci> __s0 </ci>
+                <ci> __s3 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> __reverse_RR_local2 </ci>
+                <ci> __s4 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r3" name="RR" reversible="true">
+        <listOfReactants>
+          <speciesReference species="__s3" constant="true"/>
+          <speciesReference species="__s3" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="__s5" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <cn> 0.5 </cn>
+                <ci> _RR_local3 </ci>
+                <apply>
+                  <power/>
+                  <ci> __s3 </ci>
+                  <cn> 2 </cn>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> __reverse_RR_local3 </ci>
+                <ci> __s5 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r4" name="RI" reversible="true">
+        <listOfReactants>
+          <speciesReference species="__s1" constant="true"/>
+          <speciesReference species="__s2" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="__s4" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <cn> 2 </cn>
+                <ci> _RI_local2 </ci>
+                <ci> __s1 </ci>
+                <ci> __s2 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> __reverse_RI_local2 </ci>
+                <ci> __s4 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r5" name="RI" reversible="true">
+        <listOfReactants>
+          <speciesReference species="__s1" constant="true"/>
+          <speciesReference species="__s4" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="__s5" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> _RI_local3 </ci>
+                <ci> __s1 </ci>
+                <ci> __s4 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <cn> 2 </cn>
+                <ci> __reverse_RI_local3 </ci>
+                <ci> __s5 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
